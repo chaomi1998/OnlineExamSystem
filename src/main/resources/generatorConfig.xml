@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="jdbc.properties"/>
+    <classPathEntry location="${jdbc.jar.path}"/>
+    <context id="default" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"                                                        userId="${jdbc.username}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="cn.edu.buu.uoes.pojo" targetProject="src/main/java">
+            <property name="constructorBased" value="true"/>
+        </javaModelGenerator>
+
+        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="cn.edu.buu.uoes.dao" targetProject="src/main/java" />
+
+        <table tableName="user" mapperName="UserDao" />
+        <table tableName="test" mapperName="TestDao" />
+        <table tableName="teacher" mapperName="TeacherDao" />
+        <table tableName="student" mapperName="StudentDao" />
+        <table tableName="selection" mapperName="SelectionDao" />
+        <table tableName="score" mapperName="ScoreDao" />
+        <table tableName="result" mapperName="ResultDao" />
+        <table tableName="question" mapperName="QuestionDao" />
+        <table tableName="note" mapperName="NoteDao" />
+        <table tableName="exam_question" mapperName="ExamQuestionDao" />
+        <table tableName="exam" mapperName="ExamDao" />
+        <table tableName="course" mapperName="CourseDao" />
+        <table tableName="classes" mapperName="ClassesDao" />
+        <table tableName="class_course" mapperName="ClassCourseDao" />
+    </context>
+</generatorConfiguration>
