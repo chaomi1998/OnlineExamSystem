@@ -115,4 +115,10 @@ public class UserServiceImpl implements UserService {
     public boolean updatePassword(User user) {
         return userDao.updateByPrimaryKey(user) != 0;
     }
+
+    @Override
+    public PageInfo<Student> findStudentByClassId(int clno, int pageNum, int pageSize) {
+        // TODO 还没写
+        return null;
+    }
 }

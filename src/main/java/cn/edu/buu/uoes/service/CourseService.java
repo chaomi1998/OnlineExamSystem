@@ -10,4 +10,6 @@ public interface CourseService {
     public boolean updateCourse(Course course);
     public boolean addCourse(Course course);
     public boolean deleteCourse(int cno);
+    public PageInfo<Course> findCourseByClassId(int clno, int pageNum, int pageSize);
+    public PageInfo<Course> findCourseByTeacherId(int tno, int pageNum, int pageSize);
 }

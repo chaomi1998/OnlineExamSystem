@@ -21,5 +21,5 @@ public interface UserService {
     public boolean addStudent(Student student, User user);
     public boolean deleteStudent(int sno);
     public boolean updatePassword(User user);
-
+    public PageInfo<Student> findStudentByClassId(int clno, int pageNum, int pageSize);
 }

@@ -47,4 +47,16 @@ public class CourseServiceImpl implements CourseService {
     public boolean deleteCourse(int cno) {
         return courseDao.deleteByPrimaryKey(cno) != 0;
     }
+
+    @Override
+    public PageInfo<Course> findCourseByClassId(int clno, int pageNum, int pageSize) {
+        // TODO 还没写
+        return null;
+    }
+
+    @Override
+    public PageInfo<Course> findCourseByTeacherId(int tno, int pageNum, int pageSize) {
+        // TODO 还没写
+        return null;
+    }
 }
