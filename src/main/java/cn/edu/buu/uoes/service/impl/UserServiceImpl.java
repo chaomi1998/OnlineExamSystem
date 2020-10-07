@@ -87,7 +87,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageInfo<Student> findStudentByName(String studentName, int pageNum, int pageSize) {
-        return null;
+        return PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() ->
+                studentDao.selectByName(studentName)
+        );
     }
 
     @Override

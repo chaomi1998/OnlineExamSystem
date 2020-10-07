@@ -87,4 +87,17 @@ public interface CourseDao {
         "where cno = #{cno,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Course record);
+
+    @Select({
+        "select",
+        "cno, course_name, tno",
+        "from course",
+        "where course_name like CONCAT('%', #{courseName, jdbcType=VARCHAR}, '%')"
+    })
+    @ConstructorArgs({
+            @Arg(column="cno", javaType=Integer.class, jdbcType=JdbcType.INTEGER, id=true),
+            @Arg(column="course_name", javaType=String.class, jdbcType=JdbcType.VARCHAR),
+            @Arg(column="tno", javaType=Integer.class, jdbcType=JdbcType.INTEGER)
+    })
+    List<Course> selectByName(String courseName);
 }

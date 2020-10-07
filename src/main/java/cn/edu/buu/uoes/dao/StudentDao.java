@@ -90,4 +90,18 @@ public interface StudentDao {
         "where sno = #{sno,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Student record);
+
+    @Select({
+            "select",
+            "sno, student_name, sex, clno",
+            "from student",
+            "where student_name like CONCAT('%', #{studentName, jdbcType=VARCHAR}, '%')"
+    })
+    @ConstructorArgs({
+            @Arg(column="sno", javaType=Integer.class, jdbcType=JdbcType.INTEGER, id=true),
+            @Arg(column="student_name", javaType=String.class, jdbcType=JdbcType.VARCHAR),
+            @Arg(column="sex", javaType=String.class, jdbcType=JdbcType.VARCHAR),
+            @Arg(column="clno", javaType=Integer.class, jdbcType=JdbcType.INTEGER)
+    })
+    List<Student> selectByName(String studentName);
 }
