@@ -5,10 +5,10 @@ import com.github.pagehelper.PageInfo;
 
 public interface TestService {
     public PageInfo<Test> getTestsList(int pageNum, int pageSize);
-    public Test findTestById(int tno);
+    public Test findTestById(int tsno);
     public PageInfo<Test> findTestByCourseId(int cno, int pageNum, int pageSize);
     public boolean updateTest(Test test);
     public boolean addTest(Test test);
-    public boolean deleteTest(int tno);
+    public boolean deleteTest(int tsno);
 
 }

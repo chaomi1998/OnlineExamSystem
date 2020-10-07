@@ -96,4 +96,19 @@ public interface NoteDao {
         "where nno = #{nno,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Note record);
+
+    @Select({
+            "select",
+            "nno, note_text, nsend_user, nget_user, time",
+            "from note",
+            "where nsend_user = #{uno}"
+    })
+    @ConstructorArgs({
+            @Arg(column="nno", javaType=Integer.class, jdbcType=JdbcType.INTEGER, id=true),
+            @Arg(column="note_text", javaType=String.class, jdbcType=JdbcType.VARCHAR),
+            @Arg(column="nsend_user", javaType=Integer.class, jdbcType=JdbcType.INTEGER),
+            @Arg(column="nget_user", javaType=Integer.class, jdbcType=JdbcType.INTEGER),
+            @Arg(column="time", javaType=Date.class, jdbcType=JdbcType.TIMESTAMP)
+    })
+    List<Note> selectBySendId(int uno);
 }
