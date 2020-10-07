@@ -2,12 +2,8 @@ package cn.edu.buu.uoes.dao;
 
 import cn.edu.buu.uoes.pojo.User;
 import java.util.List;
-import org.apache.ibatis.annotations.Arg;
-import org.apache.ibatis.annotations.ConstructorArgs;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
 public interface UserDao {
@@ -35,6 +31,7 @@ public interface UserDao {
         "values (#{uno,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, ",
         "#{authority,jdbcType=INTEGER})"
     })
+    @Options(useGeneratedKeys = true, keyColumn = "uno", keyProperty = "uno")
     int insert(User record);
 
     /**

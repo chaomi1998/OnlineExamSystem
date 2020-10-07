@@ -2,12 +2,8 @@ package cn.edu.buu.uoes.dao;
 
 import cn.edu.buu.uoes.pojo.Teacher;
 import java.util.List;
-import org.apache.ibatis.annotations.Arg;
-import org.apache.ibatis.annotations.ConstructorArgs;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
 public interface TeacherDao {
@@ -35,6 +31,7 @@ public interface TeacherDao {
         "values (#{tno,jdbcType=INTEGER}, #{teacherName,jdbcType=VARCHAR}, ",
         "#{sex,jdbcType=VARCHAR}, #{teacherTel,jdbcType=VARCHAR})"
     })
+    @Options(useGeneratedKeys = true, keyColumn = "tno", keyProperty = "tno")
     int insert(Teacher record);
 
     /**
@@ -95,7 +92,13 @@ public interface TeacherDao {
             "select",
             "tno, teacher_name, sex, teacher_tel",
             "from teacher",
-            "where teacher_name like '%#{teacherName, jdbcType=VARCHAR}%'"
+            "where teacher_name like CONCAT('%', #{teacherName, jdbcType=VARCHAR}, '%')"
+    })
+    @ConstructorArgs({
+            @Arg(column="tno", javaType=Integer.class, jdbcType=JdbcType.INTEGER, id=true),
+            @Arg(column="teacher_name", javaType=String.class, jdbcType=JdbcType.VARCHAR),
+            @Arg(column="sex", javaType=String.class, jdbcType=JdbcType.VARCHAR),
+            @Arg(column="teacher_tel", javaType=String.class, jdbcType=JdbcType.VARCHAR)
     })
     List<Teacher> selectByName(String teacherName);
 }

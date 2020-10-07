@@ -1,1 +1,4 @@
 /src/main/resources/jdbc.properties
+/out/
+/target/
+/uoes.uml

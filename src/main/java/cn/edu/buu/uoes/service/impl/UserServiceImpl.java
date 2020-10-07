@@ -1,6 +1,7 @@
 package cn.edu.buu.uoes.service.impl;
 
 
+import cn.edu.buu.uoes.dao.StudentDao;
 import cn.edu.buu.uoes.dao.TeacherDao;
 import cn.edu.buu.uoes.dao.UserDao;
 import cn.edu.buu.uoes.pojo.Student;
@@ -18,8 +19,13 @@ import java.util.Objects;
 public class UserServiceImpl implements UserService {
     @Resource
     UserDao userDao;
+
     @Resource
     TeacherDao teacherDao;
+
+    @Resource
+    StudentDao studentDao;
+
     @Override
     public boolean login(User user) {
         User mUser = userDao.selectByPrimaryKey(user.getUno());
@@ -45,7 +51,7 @@ public class UserServiceImpl implements UserService {
     public PageInfo<Teacher> getTeacherByName(String teacherName, int pageNum, int pageSize) {
         return PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() ->
                 teacherDao.selectByName(teacherName)
-                );
+        );
     }
 
     @Override
@@ -54,17 +60,57 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean addTeacher(Teacher teacher) {
+    public boolean addTeacher(Teacher teacher, User user) {
+        userDao.insert(user);
+        teacher.setTno(user.getUno());
         return teacherDao.insert(teacher) != 0;
     }
 
     @Override
     public boolean deleteTeacher(int tno) {
-        return teacherDao.deleteByPrimaryKey(tno) != 0;
+        int result = teacherDao.deleteByPrimaryKey(tno);
+        userDao.deleteByPrimaryKey(tno);
+        return result != 0;
     }
 
     @Override
     public PageInfo<Student> getStudentsList(int pageNum, int pageSize) {
+        return PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() ->
+                studentDao.selectAll()
+        );
+    }
+
+    @Override
+    public Student findStudentById(int sno) {
+        return studentDao.selectByPrimaryKey(sno);
+    }
+
+    @Override
+    public PageInfo<Student> findStudentByName(String studentName, int pageNum, int pageSize) {
         return null;
+    }
+
+    @Override
+    public boolean updateStudent(Student student) {
+        return studentDao.updateByPrimaryKey(student) != 0;
+    }
+
+    @Override
+    public boolean addStudent(Student student, User user) {
+        userDao.insert(user);
+        student.setSno(user.getUno());
+        return studentDao.insert(student) != 0;
+    }
+
+    @Override
+    public boolean deleteStudent(int sno) {
+        int result = studentDao.deleteByPrimaryKey(sno);
+        userDao.deleteByPrimaryKey(sno);
+        return result != 0;
+    }
+
+    @Override
+    public boolean updatePassword(User user) {
+        return userDao.updateByPrimaryKey(user) != 0;
     }
 }
